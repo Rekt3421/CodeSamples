@@ -1,0 +1,49 @@
+class Solution:
+    def totalFruit(self, tree: 'List[int]') -> 'int':
+        if (len(tree) <= 2):
+            return len(tree)
+        type_one = tree[0];
+        start_index = 1;
+        type_two = tree[start_index];
+        count1 = 1;
+        count2 = 1;
+        
+        last_index_1 = 0;
+        last_index_2 = 1;
+       
+        while(type_one == type_two and len(tree) > start_index+1):
+            start_index = start_index+1;
+            count1 = count1+1
+            type_two = tree[start_index];
+        if (start_index == len(tree)-1):
+            return count1+1
+        max_fruit_so_far = 0;
+        
+        last_index_1 = count1-1;
+        last_index_2 = start_index;
+        
+        for x in range(start_index+1,len(tree)):
+          
+            if ( tree[x] == type_one):
+                count1 = count1+1
+                last_index_1 = x
+            elif (tree[x] == type_two):
+                count2 = count2 +1
+                last_index_2 = x
+            else:
+                if(max_fruit_so_far < count1+count2):
+                    max_fruit_so_far = count1+count2
+                    
+                if (last_index_1 < last_index_2 ):
+                    count1 = 1;
+                    count2 = last_index_2 - last_index_1
+                    type_one =tree[x]
+                    last_index_1 = x
+                  
+                else:
+                    count2 = 1
+                    count1 = last_index_1 - last_index_2
+                  
+                    type_two =tree[x]
+                    last_index_2 = x
+        return(max(max_fruit_so_far,count1+count2))          

@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        
+        int pointer_1 = 0;
+        int pointer_2 = height.size()-1;
+        int max = 0;
+        int curr = 0;
+        int h1 = 0;
+        int h2 = 0;
+        
+        
+        while(pointer_1 != pointer_2){
+            h1 = height[pointer_1];
+            h2 = height[pointer_2];
+            curr = min(h1,h2) * (pointer_2-pointer_1);
+            if (curr > max){
+                max = curr;
+            }
+            if(h1 > h2){
+                pointer_2--;
+            }else{
+                pointer_1++;
+            }   
+        }
+        return max;
+    }
+};

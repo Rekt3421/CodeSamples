@@ -1,0 +1,19 @@
+class Solution:
+    def lengthOfLongestSubstring(self, s: 'str') -> 'int':
+        found = dict()
+        curr_str = 0
+        max_str = 0
+        word = ''
+        for ind in range(0,len(s)) :
+            
+           
+            if not s[ind] in word:
+                word = word + s[ind]
+            else :
+               
+                word = word[word.index(s[ind])+1:] + s[ind]
+               
+           
+            if(len(word)) > max_str:
+                    max_str = len(word)  
+        return max_str

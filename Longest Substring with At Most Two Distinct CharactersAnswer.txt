@@ -1,0 +1,33 @@
+class Solution:
+    def lengthOfLongestSubstringTwoDistinct(self, s: 'str') -> 'int':
+        ptr_1 = 0
+        ptr_2 = 0
+        curr_word = ''
+        start_2 = 0
+        while(ptr_2 == ptr_1 and start_2 < len(s)):
+            if (not s[ptr_1] == s[start_2] ):
+                ptr_2 = start_2
+            curr_word = curr_word + s[start_2]
+            start_2 = start_2+1    
+        max_len = 0
+        
+        for x in range (start_2, len(s)):
+            if (s[ptr_1] == s[x] or s[ptr_2] == s[x]):
+                curr_word = curr_word + s[x]
+                if (not curr_word[-2] == curr_word[-1] and s[x-1] == s[ptr_2] ):
+                    ptr_1 = x
+                elif (not curr_word[-2] == curr_word[-1] and s[x-1] == s[ptr_1] ):
+                    ptr_2 = x
+            else:
+                if ( max_len < len(curr_word)):
+                    max_len = len(curr_word)
+                if(ptr_1 > ptr_2):
+                    curr_word = s[ptr_1:x] + s[x]
+                    ptr_2 = x
+                else : 
+                    curr_word = s[ptr_2:x] + s[x]
+                    ptr_1 = x
+                   
+        return max(max_len,len(curr_word))
+            
+       
